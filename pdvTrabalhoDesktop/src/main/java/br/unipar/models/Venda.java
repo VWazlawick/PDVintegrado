@@ -19,6 +19,7 @@ public class Venda {
     private Date dtVenda;
     private Double vlTotal;
     private Cliente cliente;
+    private List<ItemVenda> listaProdutos;
 
     @Override
     public String toString() {
@@ -28,6 +29,7 @@ public class Venda {
                 ", \ndtVenda=" + dtVenda +
                 ", \nvlTotal=" + vlTotal +
                 ", \ncliente=" + cliente +
+                ", \nitensVenda=" + listaProdutos +
                 '}';
     }
 

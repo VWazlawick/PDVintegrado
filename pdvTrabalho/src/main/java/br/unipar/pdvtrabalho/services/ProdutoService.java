@@ -34,6 +34,14 @@ public class ProdutoService {
     }
 
     public List<Produto> findAll(){
-        return produtoRepository.findAll();
+        return produtoRepository.findAllByOrderById();
+    }
+
+    public List<Produto> findByDescricao(String descricao){
+        return produtoRepository.findByDescricaoContainingIgnoreCaseOrderByDescricao(descricao);
+    }
+
+    public List<Produto> findByCategoria(String categoria){
+        return produtoRepository.findByCategoriaContainingIgnoreCaseOrderByDescricao(categoria);
     }
 }

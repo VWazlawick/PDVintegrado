@@ -51,4 +51,14 @@ public class ProdutoController {
     public ResponseEntity<List<Produto>> findAll(){
         return ResponseEntity.ok(produtoService.findAll());
     }
+
+    @GetMapping("/descricao")
+    public  ResponseEntity<List<Produto>> findByDescricao(String descricao){
+        return ResponseEntity.ok(produtoService.findByDescricao(descricao));
+        }
+
+    @GetMapping("/categoria")
+    public ResponseEntity<List<Produto>> findByCategirua(String categoria){
+        return ResponseEntity.ok(produtoService.findByCategoria(categoria));
+    }
 }

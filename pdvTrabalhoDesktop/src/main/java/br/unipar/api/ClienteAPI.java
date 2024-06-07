@@ -140,7 +140,7 @@ public class ClienteAPI {
     }
 
     public static List<Cliente> findAll(){
-        List<Cliente> lista = new ArrayList<Cliente>();
+        List<Cliente> lista = new ArrayList<>();
         try{
             URL url = new URL("http://localhost:8080/cliente/all");
 
@@ -157,6 +157,7 @@ public class ClienteAPI {
             while ((inputLine = in.readLine()) != null) {
                 result += inputLine;
             }
+            in.close();
 
             lista = Cliente.unmarshallFromJson(result);
 
@@ -166,6 +167,37 @@ public class ClienteAPI {
 
             conn.disconnect();
         }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+
+    public static List<Cliente> findByNome(String nome){
+        List<Cliente> lista = new ArrayList<>();
+        try {
+            URL url = new URL("http://localhost:8080/cliente/nome?nome=" +  java.net.URLEncoder.encode(nome, "UTF-8"));
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String inputLine;
+            String result  = "";
+
+            while((inputLine = in.readLine())!= null){
+                result += inputLine;
+            }
+            in.close();
+
+            lista = Cliente.unmarshallFromJson(result);
+
+            int code = conn.getResponseCode();
+            System.out.println("Response code: " + code);
+
+        }
+        catch (Exception ex){
             ex.printStackTrace();
         }
         return lista;

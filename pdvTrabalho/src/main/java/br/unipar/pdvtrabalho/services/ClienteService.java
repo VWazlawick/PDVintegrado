@@ -2,6 +2,7 @@ package br.unipar.pdvtrabalho.services;
 
 import br.unipar.pdvtrabalho.models.Cliente;
 import br.unipar.pdvtrabalho.repositories.ClienteRepository;
+import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,12 @@ public class ClienteService {
     }
 
     public List<Cliente> findAll(){
-        return clienteRepository.findAll();
+        return clienteRepository.findAllByOrderById();
     }
 
+    public List<Cliente> findByNome(String nome){
+        return clienteRepository.findByNomeContainingIgnoreCaseOrderByNomeAsc(nome);
+    }
 
 
 

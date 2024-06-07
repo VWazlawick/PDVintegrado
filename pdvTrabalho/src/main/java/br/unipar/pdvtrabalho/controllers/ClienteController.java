@@ -3,6 +3,7 @@ package br.unipar.pdvtrabalho.controllers;
 import br.unipar.pdvtrabalho.dtos.ClienteRequest;
 import br.unipar.pdvtrabalho.models.Cliente;
 import br.unipar.pdvtrabalho.services.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,15 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.findById(id));
     }
 
+    @Operation(description = "Buscar os Cliente ordenado pelo ID")
     @GetMapping("/all")
     public ResponseEntity<List<Cliente>> findAll(){
         return ResponseEntity.ok(clienteService.findAll());
+    }
+
+    @Operation(description = "Buscar os Clientes pelo Nome")
+    @GetMapping("/nome")
+    public ResponseEntity<List<Cliente>> findByNome(@RequestParam String nome){
+        return ResponseEntity.ok(clienteService.findByNome(nome));
     }
 }

@@ -19,12 +19,14 @@ public class ExceptionHandlerController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorException handlerException(Exception ex){
+        ex.printStackTrace();
         return new ErrorException(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorException> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex){
+        ex.printStackTrace();
         List<String> errors = new ArrayList<>();
 
         for(FieldError fieldError : ex.getBindingResult().getFieldErrors()){

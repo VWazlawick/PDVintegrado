@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Produto {
-    private Long id;
+    private int id;
     private String descricao;
     private double valor;
     private String categoria;

@@ -85,11 +85,11 @@ public class ProdutoAPI {
         return produto;
     }
 
-    public static void delete(Produto produto) {
+    public static void delete(int id) {
         try {
             String url = "http://localhost:8080/produto/{id}";
 
-            URI uri = new URI(url.replace("{id}", String.valueOf(produto.getId())));
+            URI uri = new URI(url.replace("{id}", String.valueOf(id)));
 
             HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
             conn.setRequestMethod("DELETE");
@@ -158,6 +158,66 @@ public class ProdutoAPI {
 
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
+
+            conn.disconnect();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+
+    public static List<Produto> findByDescricao(String descricao){
+        List<Produto> lista = new ArrayList<>();
+        try {
+            URL url = new URL("http://localhost:8080/produto/descricao?descricao=" + java.net.URLEncoder.encode(descricao, "UTF-8"));
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            String result = "";
+
+            while((inputLine = in.readLine())!=null){
+                result+=inputLine;
+            }
+            in.close();
+
+            lista = Produto.unmarshallFromJson(result);
+
+            int code = conn.getResponseCode();;
+            System.out.println("Response Code: " + code);
+
+            conn.disconnect();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+
+    public static List<Produto> findByCategoria(String categoria){
+        List<Produto> lista = new ArrayList<>();
+        try {
+            URL url = new URL("http://localhost:8080/produto/categoria?categoria=" + java.net.URLEncoder.encode(categoria, "UTF-8"));
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            String result = "";
+
+            while((inputLine = in.readLine())!=null){
+                result+=inputLine;
+            }
+            in.close();
+
+            lista = Produto.unmarshallFromJson(result);
+
+            int code = conn.getResponseCode();;
+            System.out.println("Response Code: " + code);
 
             conn.disconnect();
         }

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,8 +34,10 @@ public class Venda {
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "venda")
+    private List<ItemVenda> listaProdutos;
 
     public static Venda requestToVenda(VendaRequest dto){
-        return new Venda(0,dto.getObservacao(),dto.getDtVenda(),dto.getVlTotal(),dto.getCliente());
+        return new Venda(0,dto.getObservacao(),dto.getDtVenda(),dto.getVlTotal(),dto.getCliente(),dto.getListaProdutos());
     }
 }

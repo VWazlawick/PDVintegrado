@@ -15,44 +15,31 @@ import java.util.List;
 
 public class VendaAPI {
 
-    public static Venda insert(Venda venda) {
-        try {
-            URL url = new URL("http://localhost:8080/venda");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setDoOutput(true);
+    public static void insert(Venda venda) {
+        new Thread(()->{
+            try {
+                URL url = new URL("http://localhost:8080/venda");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
 
-            String json = Venda.marshallToJson(venda);
+                String json = Venda.marshallToJson(venda);
 
-            try(OutputStream os = conn.getOutputStream()) {
-                byte[] input = json.getBytes();
-                os.write(input, 0, input.length);
-            }
-
-            int code = conn.getResponseCode();
-            System.out.println("Response Code : " + code);
-
-            if (code == HttpURLConnection.HTTP_CREATED){
-                try(BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"))){
-                    StringBuilder response = new StringBuilder();
-                    String responseLine= null;
-
-                    while((responseLine=br.readLine())!=null){
-                        response.append(responseLine.trim());
-                    }
-
-                    ObjectMapper mapper = new ObjectMapper();
-                    venda = mapper.readValue(response.toString(), Venda.class);
+                try(OutputStream os = conn.getOutputStream()) {
+                    byte[] input = json.getBytes();
+                    os.write(input, 0, input.length);
                 }
-            }
 
-            conn.disconnect();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return venda;
+                int code = conn.getResponseCode();
+                System.out.println("Response Code : " + code);
+
+                conn.disconnect();
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        },"Finalizado venda").start();
     }
 
     public static Venda update(Venda venda) {

@@ -21,8 +21,8 @@ public class VendaController {
     private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Venda> insert(@RequestBody VendaRequest dto, UriComponentsBuilder builder){
-        Venda venda = vendaService.insert(Venda.requestToVenda(dto));
+    public ResponseEntity<Venda> insert(@RequestBody VendaRequest dtoVenda, UriComponentsBuilder builder){
+        Venda venda = vendaService.insert(Venda.requestToVenda(dtoVenda));
 
         URI uri = builder.path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
 

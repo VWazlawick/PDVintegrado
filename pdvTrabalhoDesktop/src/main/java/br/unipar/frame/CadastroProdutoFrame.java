@@ -9,6 +9,7 @@ import br.unipar.exceptions.ErrorException;
 import br.unipar.models.Produto;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -57,6 +58,23 @@ public class CadastroProdutoFrame extends javax.swing.JFrame {
         tfDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDescricaoActionPerformed(evt);
+            }
+        });
+        tfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfDescricaoKeyReleased(evt);
+            }
+        });
+
+        tfCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfCategoriaKeyReleased(evt);
+            }
+        });
+
+        tfValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfValorKeyReleased(evt);
             }
         });
 
@@ -157,17 +175,30 @@ public class CadastroProdutoFrame extends javax.swing.JFrame {
         excluirProduto();
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    private void tfDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescricaoKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarProduto();
+        }
+    }
+
+    private void tfCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCategoriaKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarProduto();
+        }
+    }
+
+    private void tfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarProduto();
+        }
+    }
+
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                           
         this.dispose();
     }
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        try {
-            validarCampos();
-            salvarProduto();
-        } catch (ErrorException e) {
-            throw new RuntimeException(e);
-        }
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {
+        salvarProduto();
     }
 
     /**
@@ -220,20 +251,27 @@ public class CadastroProdutoFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void salvarProduto() {
-        ProdutoAPI dao = new ProdutoAPI();
-        Produto produto = new Produto();
+        try {
+            validarCampos();
 
-        produto.setDescricao(tfDescricao.getText());
-        produto.setCategoria(tfCategoria.getText());
-        produto.setValor(Double.parseDouble(tfValor.getText()));
+            ProdutoAPI dao = new ProdutoAPI();
+            Produto produto = new Produto();
 
-        if (!tfId.getText().isEmpty()) {
-            produto.setId(Integer.parseInt(tfId.getText()));
-            dao.update(produto);
-        } else {
-            dao.insert(produto);
+            produto.setDescricao(tfDescricao.getText());
+            produto.setCategoria(tfCategoria.getText());
+            produto.setValor(Double.parseDouble(tfValor.getText()));
+
+            if (!tfId.getText().isEmpty()) {
+                produto.setId(Integer.parseInt(tfId.getText()));
+                dao.update(produto);
+            } else {
+                dao.insert(produto);
+            }
+            this.dispose();
+        } catch (ErrorException ex) {
+            throw new RuntimeException(ex);
         }
-        this.dispose();
+
     }
 
     public void excluirProduto(){
@@ -258,6 +296,12 @@ public class CadastroProdutoFrame extends javax.swing.JFrame {
         if(tfValor.getText().isEmpty()){
             tfValor.requestFocus();
             JOptionPane.showMessageDialog(this, "Informe um valor para o produto", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            throw new ErrorException("Informe o valor");
+        }
+        if(!tfValor.getText().isEmpty() && tfValor.getText()=="0"){
+            tfValor.requestFocus();
+            JOptionPane.showMessageDialog(this,"Informe um valor maior que R$0,00", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            throw new ErrorException("Informe um valor");
         }
     }
 }

@@ -95,11 +95,18 @@
     <Component class="javax.swing.JTextField" name="tfDescricao">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDescricaoActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDescricaoKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfCategoria">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfCategoriaKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfValor">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfValorKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfId">
       <Properties>

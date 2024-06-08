@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    public List<Cliente> findAllByOrderById();
+    public List<Cliente> findAllByOrderByNome();
 
     public List<Cliente> findByNomeContainingIgnoreCaseOrderByNomeAsc(String nome);
 }

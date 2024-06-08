@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    public List<Produto> findAllByOrderById();
+    public List<Produto> findAllByOrderByDescricao();
 
     public List<Produto> findByDescricaoContainingIgnoreCaseOrderByDescricao(String descricao);
 

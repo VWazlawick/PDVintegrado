@@ -35,7 +35,7 @@ public class ClienteService {
     }
 
     public List<Cliente> findAll(){
-        return clienteRepository.findAllByOrderById();
+        return clienteRepository.findAllByOrderByNome();
     }
 
     public List<Cliente> findByNome(String nome){

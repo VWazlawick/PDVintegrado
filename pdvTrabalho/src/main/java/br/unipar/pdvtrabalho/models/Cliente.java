@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -28,7 +29,8 @@ public class Cliente {
     @Length(min = 3, max = 128)
     private String nome;
 
-    @Length(min = 8, max = 14)
+    @Pattern(regexp = "^$|^(?:\\(?\\d{2,3}\\)?[- ]?)?(?:\\d{4,5})[- ]?(?:\\d{4})?$" , message = "Formato inválido para telefone")
+    @Length( max = 14)
     private String telefone;
 
     @Length(max = 128)

@@ -34,7 +34,7 @@ public class ProdutoService {
     }
 
     public List<Produto> findAll(){
-        return produtoRepository.findAllByOrderById();
+        return produtoRepository.findAllByOrderByDescricao();
     }
 
     public List<Produto> findByDescricao(String descricao){

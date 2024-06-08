@@ -9,6 +9,7 @@ import br.unipar.exceptions.ErrorException;
 import br.unipar.models.Cliente;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -65,10 +66,27 @@ public class CadastroClienteFrame extends javax.swing.JFrame {
                 tfNomeActionPerformed(evt);
             }
         });
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNomeKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("Telefone:");
 
+        tfTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfTelefoneKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Email:");
+
+        tfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfEmailKeyReleased(evt);
+            }
+        });
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,15 +173,32 @@ public class CadastroClienteFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNomeActionPerformed
+    private void tfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarCadastro();
+        }
+    }
 
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+    private void tfTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefoneKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarCadastro();
+        }
+    }
+
+    private void tfEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEmailKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            salvarCadastro();
+        }
+    }
+
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    }
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                           
         this.dispose();
-    }//GEN-LAST:event_btCancelarActionPerformed
+    }
 
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                          
         excluirCliente();
     }
 
@@ -261,15 +296,20 @@ public class CadastroClienteFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Preencha o campo nome","Atenção", JOptionPane.INFORMATION_MESSAGE);
             throw new ErrorException("Informe um nome!");
         }
-        if(tfTelefone.getText().isEmpty()){
-            tfTelefone.requestFocus();
-            JOptionPane.showMessageDialog(this, "Preenca o campo telefone", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-            throw new ErrorException("Informe um telefone!");
+        if(tfNome.getText().length()<3 || tfNome.getText().length()>128){
+            tfNome.requestFocus();
+            JOptionPane.showMessageDialog(this, "Número de caracteres inválido(Minimo=3 e Máximo=128)", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            throw new ErrorException("Nome Inválido!");
         }
-        if(tfEmail.getText().isEmpty()){
+        if(!tfTelefone.getText().isEmpty() && tfTelefone.getText().length()<8 || tfTelefone.getText().length()>14){
+            tfTelefone.requestFocus();
+            JOptionPane.showMessageDialog(this, "Número de caracteres inválido(Minimo=8 e Máximo=14)", "Atenção",JOptionPane.INFORMATION_MESSAGE);
+            throw new ErrorException("Telefone inválido");
+        }
+        if(!tfEmail.getText().isEmpty() && tfEmail.getText().length()>128){
             tfEmail.requestFocus();
-            JOptionPane.showMessageDialog(this, "Preencha o campo email", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-            throw new ErrorException("Informe um email!");
+            JOptionPane.showMessageDialog(this, "Número de caracteres inválido(Max=128)", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            throw new ErrorException("Email Inválido");
         }
     }
 }

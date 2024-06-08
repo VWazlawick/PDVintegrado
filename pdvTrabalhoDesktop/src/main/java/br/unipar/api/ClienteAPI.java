@@ -1,6 +1,7 @@
 package br.unipar.api;
 
 import br.unipar.models.Cliente;
+import br.unipar.models.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ClienteAPI {
@@ -48,11 +50,14 @@ public class ClienteAPI {
                     cliente = mapper.readValue(response.toString(), Cliente.class);
                 }
             }
+            Log log = new Log(new Date(), "Criar Cliente", code);
+            log.gerarLog(log);
             conn.disconnect();
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
+
         return cliente;
     }
 
@@ -78,6 +83,9 @@ public class ClienteAPI {
 
             System.out.println("Response code: " + code);
 
+            Log log = new Log(new Date(), "Atualizar Cliente", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex){
@@ -97,6 +105,9 @@ public class ClienteAPI {
 
             int code = conn.getResponseCode();
             System.out.println("Response code: " + code);
+
+            Log log = new Log(new Date(), "Excluir Cliente", code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }
@@ -130,6 +141,9 @@ public class ClienteAPI {
             int code = conn.getResponseCode();
 
             System.out.println("Response code: " + code);
+
+            Log log = new Log(new Date(), "Buscar Cliente: " + id, code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }
@@ -165,6 +179,9 @@ public class ClienteAPI {
 
             System.out.println("Response Code : " + code);
 
+            Log log = new Log(new Date(), "Buscar Clientes", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -196,6 +213,10 @@ public class ClienteAPI {
             int code = conn.getResponseCode();
             System.out.println("Response code: " + code);
 
+            Log log = new Log(new Date(), "Buscar Cliente: " + nome, code);
+            log.gerarLog(log);
+
+            conn.disconnect();
         }
         catch (Exception ex){
             ex.printStackTrace();

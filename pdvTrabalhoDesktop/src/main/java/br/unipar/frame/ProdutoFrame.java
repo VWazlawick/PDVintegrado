@@ -7,9 +7,12 @@ package br.unipar.frame;
 import br.unipar.api.ProdutoAPI;
 import br.unipar.models.Produto;
 import br.unipar.tablemodels.ProdutoTableModel;
+import br.unipar.updaters.ProdutoUpdater;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -21,7 +24,7 @@ public class ProdutoFrame extends javax.swing.JFrame {
     ProdutoTableModel model;
     public ProdutoFrame() {
         initComponents();
-        carregarProdutos();
+        carregarUpdater();
         configurarComboBox();
     }
 
@@ -253,6 +256,28 @@ public class ProdutoFrame extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Descrição");
         jComboBox1.addItem("Categoria");
+    }
+
+    private void carregarUpdater(){
+        ProdutoUpdater updater = new ProdutoUpdater();
+        CompletableFuture<List<Produto>> future = updater.startUpdating();
+
+        future.thenAccept(ret -> {
+            SwingUtilities.invokeLater(() -> {
+                if(lista==null){
+                    lista = new ArrayList<>();
+                }
+                lista.clear();
+                lista.addAll(ret);
+                System.out.println("Lista Atualizada!");
+
+                model = new ProdutoTableModel(lista);
+                jTableProdutos.setModel(model);
+            });
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
+        });
     }
 
 }

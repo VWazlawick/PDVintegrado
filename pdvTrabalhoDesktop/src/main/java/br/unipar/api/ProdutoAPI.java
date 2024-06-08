@@ -1,5 +1,6 @@
 package br.unipar.api;
 
+import br.unipar.models.Log;
 import br.unipar.models.Produto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProdutoAPI {
@@ -47,6 +49,9 @@ public class ProdutoAPI {
                 }
             }
 
+            Log log = new Log(new Date(), "Criar Produto", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex){
@@ -77,6 +82,9 @@ public class ProdutoAPI {
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
 
+            Log log = new Log(new Date(), "Atualizar Produto", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex){
@@ -97,8 +105,10 @@ public class ProdutoAPI {
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
 
-            conn.disconnect();
+            Log log = new Log(new Date(), "Excluir Produto", code);
+            log.gerarLog(log);
 
+            conn.disconnect();
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -128,6 +138,9 @@ public class ProdutoAPI {
 
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
+
+            Log log = new Log(new Date(), "Buscar Produto: " + id, code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }
@@ -159,6 +172,9 @@ public class ProdutoAPI {
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
 
+            Log log = new Log(new Date(), "Buscar Produtos", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex){
@@ -189,6 +205,9 @@ public class ProdutoAPI {
             int code = conn.getResponseCode();;
             System.out.println("Response Code: " + code);
 
+            Log log = new Log(new Date(), "Buscar Produtos: " + descricao, code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex){
@@ -218,6 +237,9 @@ public class ProdutoAPI {
 
             int code = conn.getResponseCode();;
             System.out.println("Response Code: " + code);
+
+            Log log = new Log(new Date(), "Buscar Produtos: " + categoria, code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }

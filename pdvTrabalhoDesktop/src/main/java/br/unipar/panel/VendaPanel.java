@@ -403,10 +403,13 @@ public class VendaPanel extends JPanel {
         cliente=null;
         tfCliente.setText("");
         listaProdutos.clear();
+        model = new ItemVendaTableModel();
+        jTableProdutos.setModel(model);
         tfProduto.setText("");
         tfQuantidade.setText("");
         tfVlUnitario.setText("");
         tfVlTotal.setText("");
+        tfTotalVenda.setText("");
     }
 
     private void adicionarProduto(){

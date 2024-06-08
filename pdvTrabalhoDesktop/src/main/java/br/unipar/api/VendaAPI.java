@@ -1,9 +1,11 @@
 package br.unipar.api;
 
+import br.unipar.models.Log;
 import br.unipar.models.Produto;
 import br.unipar.models.Venda;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VendaAPI {
@@ -34,12 +37,17 @@ public class VendaAPI {
                 int code = conn.getResponseCode();
                 System.out.println("Response Code : " + code);
 
+                Log log = new Log(new Date(), "Criar Venda", code);
+                log.gerarLog(log);
+
                 conn.disconnect();
             }
             catch (Exception ex) {
                 ex.printStackTrace();
             }
         },"Finalizado venda").start();
+
+        JOptionPane.showMessageDialog(null, "Venda Inserido com sucesso!");
     }
 
     public static Venda update(Venda venda) {
@@ -61,6 +69,9 @@ public class VendaAPI {
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
 
+            Log log = new Log(new Date(), "Atualizar Venda", code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex) {
@@ -79,6 +90,9 @@ public class VendaAPI {
 
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
+
+            Log log = new Log(new Date(), "Excluir Venda", code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }
@@ -110,6 +124,9 @@ public class VendaAPI {
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
 
+            Log log = new Log(new Date(), "Buscar Venda: " + id, code);
+            log.gerarLog(log);
+
             conn.disconnect();
         }
         catch (Exception ex) {
@@ -140,6 +157,9 @@ public class VendaAPI {
 
             int code = conn.getResponseCode();
             System.out.println("Response Code : " + code);
+
+            Log log = new Log(new Date(), "Buscar Vendas", code);
+            log.gerarLog(log);
 
             conn.disconnect();
         }

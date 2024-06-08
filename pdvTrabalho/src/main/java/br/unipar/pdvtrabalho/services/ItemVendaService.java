@@ -1,6 +1,7 @@
 package br.unipar.pdvtrabalho.services;
 
 import br.unipar.pdvtrabalho.models.ItemVenda;
+import br.unipar.pdvtrabalho.models.Venda;
 import br.unipar.pdvtrabalho.repositories.ItemVendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,6 @@ public class ItemVendaService {
     public List<ItemVenda> findAll(){
         return itemVendaRepository.findAll();
     }
+
+    public List<ItemVenda> findByVenda(Venda venda){return itemVendaRepository.findByVenda(venda);}
 }

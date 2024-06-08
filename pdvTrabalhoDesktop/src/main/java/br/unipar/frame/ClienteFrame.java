@@ -7,10 +7,13 @@ package br.unipar.frame;
 import br.unipar.api.ClienteAPI;
 import br.unipar.models.Cliente;
 import br.unipar.tablemodels.ClienteTableModel;
+import br.unipar.updaters.ClienteUpdater;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -23,8 +26,28 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     public ClienteFrame() {
         initComponents();
-        carregarClientes();
+        //carregarClientes();
 
+        ClienteUpdater updater = new ClienteUpdater();
+        CompletableFuture future = updater.startUpdating();
+
+        future.thenAccept(obj ->{
+            List<Cliente> ret = (List<Cliente>) obj;
+            SwingUtilities.invokeLater( ()->{
+                if(lista==null){
+                    lista = new ArrayList<>();
+                }
+                lista.clear();
+                lista.addAll(ret);
+                System.out.println("Lista atualizada!");
+
+                model = new ClienteTableModel(lista);
+                jTableClientes.setModel(model);
+            });
+
+        });
+
+       // updater.stopUpdating(10);
     }
 
 

@@ -19,7 +19,7 @@ public class VendaService {
     @Autowired
     private ItemVendaRepository itemVendaRepository;
 
-    public Venda insert(Venda venda){
+        public Venda insert(Venda venda){
         vendaRepository.save(venda);
         for(ItemVenda itemVenda : venda.getListaProdutos()){
             itemVenda.setVenda(venda);
@@ -38,8 +38,15 @@ public class VendaService {
     }
 
     public Venda findById(Long id){
-        Optional<Venda> venda = vendaRepository.findById(id);
-        return venda.orElse(null);
+        Optional<Venda> vendaOptional = vendaRepository.findById(id);
+        if(vendaOptional.isPresent()){
+            Venda venda = vendaOptional.get();
+            List<ItemVenda> itemVendas = itemVendaRepository.findByVenda(venda);
+            venda.setListaProdutos(itemVendas);
+            return venda;
+        }else {
+            return null;
+        }
     }
 
     public List<Venda> findAll(){

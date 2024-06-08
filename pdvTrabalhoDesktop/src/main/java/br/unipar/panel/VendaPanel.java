@@ -5,7 +5,6 @@
 package br.unipar.panel;
 
 import br.unipar.Menu;
-import br.unipar.api.ItemVendaAPI;
 import br.unipar.api.VendaAPI;
 import br.unipar.exceptions.ErrorException;
 import br.unipar.frame.PesquisarClienteFrame;
@@ -17,14 +16,11 @@ import br.unipar.models.Venda;
 import br.unipar.tablemodels.ItemVendaTableModel;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -275,7 +271,6 @@ public class VendaPanel extends JPanel {
 
     private void btFinalizarActionPerformed(ActionEvent evt) {
         salvarVenda();
-        //limparCampos();
     }
 
     private void btCancelarActionPerformed(ActionEvent evt) {
@@ -452,22 +447,6 @@ public class VendaPanel extends JPanel {
 
 
         dao.insert(venda);
-        //salvarItensVenda(venda)
-    }
-
-    private void salvarItensVenda(Venda venda){
-        ItemVendaAPI dao = new ItemVendaAPI();
-
-        for (int i = 0; i<listaProdutos.size();i++){
-            ItemVenda itemVenda = new ItemVenda();
-
-            itemVenda.setVenda(venda);
-            itemVenda.setProduto(listaProdutos.get(i).getProduto());
-            itemVenda.setQuantidade(listaProdutos.get(i).getQuantidade());
-            itemVenda.setVlUnitario(listaProdutos.get(i).getVlUnitario());
-            itemVenda.setVlTotal(listaProdutos.get(i).getVlTotal());
-
-            dao.insert(itemVenda);
-        }
+        limparCampos();
     }
 }

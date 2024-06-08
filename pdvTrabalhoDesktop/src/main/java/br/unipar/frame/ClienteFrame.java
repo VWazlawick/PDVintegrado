@@ -26,28 +26,8 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     public ClienteFrame() {
         initComponents();
-        //carregarClientes();
 
-        ClienteUpdater updater = new ClienteUpdater();
-        CompletableFuture future = updater.startUpdating();
-
-        future.thenAccept(obj ->{
-            List<Cliente> ret = (List<Cliente>) obj;
-            SwingUtilities.invokeLater( ()->{
-                if(lista==null){
-                    lista = new ArrayList<>();
-                }
-                lista.clear();
-                lista.addAll(ret);
-                System.out.println("Lista atualizada!");
-
-                model = new ClienteTableModel(lista);
-                jTableClientes.setModel(model);
-            });
-
-        });
-
-       // updater.stopUpdating(10);
+        carregarUpdater();
     }
 
 
@@ -246,4 +226,26 @@ public class ClienteFrame extends javax.swing.JFrame {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    private void carregarUpdater(){
+        ClienteUpdater updater = new ClienteUpdater();
+        CompletableFuture<List<Cliente>> future = updater.startUpdating();
+
+        future.thenAccept(ret->{
+            SwingUtilities.invokeLater( ()->{
+                if(lista==null){
+                    lista = new ArrayList<>();
+                }
+                lista.clear();
+                lista.addAll(ret);
+                System.out.println("Lista atualizada!");
+
+                model = new ClienteTableModel(lista);
+                jTableClientes.setModel(model);
+            });
+
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
+        });
+    }
 }

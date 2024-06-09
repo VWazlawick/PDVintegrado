@@ -32,7 +32,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btSalvar" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btCancelar" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="btCancelar" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btExcluir" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>

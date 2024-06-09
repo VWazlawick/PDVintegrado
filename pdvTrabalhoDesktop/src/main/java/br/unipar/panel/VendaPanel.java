@@ -117,6 +117,9 @@ public class VendaPanel extends JPanel {
             }
         });
 
+        btAdicionar.setBackground(new java.awt.Color(98, 23, 8));
+        btAdicionar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btAdicionar.setForeground(new java.awt.Color(255, 255, 255));
         btAdicionar.setText("Adicionar");
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +127,9 @@ public class VendaPanel extends JPanel {
             }
         });
 
+        btFinalizar.setBackground(new java.awt.Color(98, 23, 8));
+        btFinalizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btFinalizar.setForeground(new java.awt.Color(255, 255, 255));
         btFinalizar.setText("Finalizar");
         btFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +137,9 @@ public class VendaPanel extends JPanel {
             }
         });
 
+        btCancelar.setBackground(new java.awt.Color(98, 23, 8));
+        btCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +147,7 @@ public class VendaPanel extends JPanel {
             }
         });
 
+        jTableProdutos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -149,14 +159,24 @@ public class VendaPanel extends JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableProdutos.setGridColor(new java.awt.Color(230, 149, 151));
+        jTableProdutos.setSelectionBackground(new java.awt.Color(98, 23, 8));
+        jTableProdutos.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(jTableProdutos);
 
+        btRemover.setBackground(new java.awt.Color(98, 23, 8));
+        btRemover.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btRemover.setForeground(new java.awt.Color(255, 255, 255));
         btRemover.setText("Remover");
         btRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRemoverActionPerformed(evt);
             }
         });
+
+        tfTotalVenda.setBackground(new java.awt.Color(98, 23, 8));
+        tfTotalVenda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tfTotalVenda.setForeground(new java.awt.Color(255, 255, 255));
 
         taObservacao.setColumns(20);
         taObservacao.setRows(5);
@@ -234,7 +254,7 @@ public class VendaPanel extends JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btRemover)
                     .addComponent(tfTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
